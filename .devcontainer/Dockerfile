@@ -1,8 +1,12 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/javascript-node/.devcontainer/base.Dockerfile
 
 # [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 16, 14, 12, 16-bullseye, 14-bullseye, 12-bullseye, 16-buster, 14-buster, 12-buster
-ARG VARIANT="16-bullseye"
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+#ARG VARIANT="16-bullseye"
+# FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+
+# universal codespaces image which include all the common languages
+# see <https://github.com/microsoft/vscode-dev-containers/tree/main/containers/codespaces-linux>
+FROM mcr.microsoft.com/vscode/devcontainers/universal:linux
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -21,7 +25,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 #    && unzip awscliv2.zip \
 #    && sudo ./aws/install
 
-# RUN mkdir ~/.tmp && cd $_
+USER root
 
 # install aws-cli v2
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -52,4 +56,5 @@ RUN npm install -g lumigo-cli
 # ENV PATH=${BREW_PREFIX}/sbin:${BREW_PREFIX}/bin:${PATH}
 # RUN brew install jq yq pipx pyenv tree 
 
+USER codespace
     
